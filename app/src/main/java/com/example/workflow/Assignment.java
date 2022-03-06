@@ -11,5 +11,9 @@ public class Assignment {
         dueTime = "69:69";
     }
 
-
+    public Assignment(String className, String title, String dueTime){
+        this.className = className;
+        this.title = title;
+        this.dueTime = dueTime;
+    }
 }

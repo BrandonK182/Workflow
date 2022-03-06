@@ -1,6 +1,7 @@
 package com.example.workflow;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,19 +18,19 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.Vi
     public static final String TAG = "ASSIGNMENT ADAPTER";
 
     Context context;
-    List<Day> days;
+    List<Assignment> assignments;
 
-    public AssignmentAdapter(Context context, List<Day> days)
+    public AssignmentAdapter(Context context, List<Assignment> assignments)
     {
         this.context = context;
-        this.days = days;
+        this.assignments = assignments;
     }
 
     // For Each row, inflate the layout
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.day_layout, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.assignment_layout, parent, false);
         return new ViewHolder(view);
     }
 
@@ -37,47 +38,44 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //get the data at position
-        Day day = days.get(position);
-        //Bind the tweet with view holder
-        holder.bind(day);
+        Assignment assignment = assignments.get(position);
+        holder.bind(assignment);
     }
-
 
     @Override
     public int getItemCount() {
-        return days.size();
+        return assignments.size();
     }
 
     //removes all elements of the recycler
     public void clear(){
-        days.clear();
+        assignments.clear();
         notifyDataSetChanged();
     }
 
     //adds a list of items to the the data
-    public void addAll(List<Day> dayList){
-        days.addAll(dayList);
+    public void addAll(List<Assignment> assignmentList){
+        assignments.addAll(assignmentList);
         notifyDataSetChanged();
     }
 
     //define the view holder
     public class ViewHolder extends RecyclerView.ViewHolder{
-        RelativeLayout container;
-        TextView tvDayOfWeek;
-        TextView tvDate;
-        RecyclerView rvAssignment;
+        TextView tvClass;
+        TextView tvTitle;
+        TextView tvTime;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvDayOfWeek = itemView.findViewById(R.id.tvDayOfWeek);
-            tvDate = itemView.findViewById(R.id.tvDate);
-            rvAssignment = itemView.findViewById(R.id.rvAssignment);
-            container = itemView.findViewById(R.id.dayContainer);
+            tvClass = itemView.findViewById(R.id.tvClass);
+            tvTitle = itemView.findViewById(R.id.tvTitle);
+            tvTime = itemView.findViewById(R.id.tvTime);
         }
 
-        public void bind(Day day) {
-            tvDayOfWeek.setText(day.dayOfTheWeek);
-            tvDate.setText(day.date);
+        public void bind(Assignment assignment) {
+            tvClass.setText(assignment.className);
+            tvTime.setText(assignment.dueTime);
+            tvTitle.setText(assignment.title);
         }
     }
 }

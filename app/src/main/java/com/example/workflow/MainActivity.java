@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.Layout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
         rvDay.setLayoutManager(layoutManager);
         rvDay.setAdapter(adapter);
         days.add(new Day());
+        days.add(new Day());
+        days.add(new Day());
+        rvDay.setHasFixedSize(true);
         adapter.notifyDataSetChanged();
     }
 

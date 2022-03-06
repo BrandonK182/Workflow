@@ -8,8 +8,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
@@ -38,8 +40,31 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //get the data at position
         Day day = days.get(position);
-        //Bind the tweet with view holder
-        holder.bind(day);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        holder.rvAssignment.setLayoutManager(layoutManager);
+        holder.rvAssignment.setHasFixedSize(true);
+
+        holder.tvDate.setText(day.date);
+        holder.tvDayOfWeek.setText(day.dayOfTheWeek);
+
+        /*DEBUGGING*/
+        ArrayList<Assignment> currentAssignment = new ArrayList<>();
+
+        switch(position)
+        {
+            case 0:
+                break;
+            case 1:
+                currentAssignment.add(new Assignment("oh no","why","aaaaaaa"));
+                break;
+            case 2:
+                currentAssignment.add(new Assignment("bbb","bbb","bees"));
+                currentAssignment.add(new Assignment());
+                break;
+        }
+
+        AssignmentAdapter assignmentAdapter = new AssignmentAdapter(holder.rvAssignment.getContext(),currentAssignment);
+        holder.rvAssignment.setAdapter(assignmentAdapter);
     }
 
 
@@ -62,7 +87,6 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
 
     //define the view holder
     public class ViewHolder extends RecyclerView.ViewHolder{
-        RelativeLayout container;
         TextView tvDayOfWeek;
         TextView tvDate;
         RecyclerView rvAssignment;
@@ -72,12 +96,15 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
             tvDayOfWeek = itemView.findViewById(R.id.tvDayOfWeek);
             tvDate = itemView.findViewById(R.id.tvDate);
             rvAssignment = itemView.findViewById(R.id.rvAssignment);
-            container = itemView.findViewById(R.id.dayContainer);
         }
 
         public void bind(Day day) {
             tvDayOfWeek.setText(day.dayOfTheWeek);
             tvDate.setText(day.date);
+            ArrayList<Assignment> currentAssignment = new ArrayList<>();
+
+            AssignmentAdapter assignmentAdapter = new AssignmentAdapter(rvAssignment.getContext(),currentAssignment);
+            rvAssignment.setAdapter(assignmentAdapter);
         }
     }
 }
