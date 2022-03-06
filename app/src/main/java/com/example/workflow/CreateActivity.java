@@ -8,9 +8,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.parceler.Parcels;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CreateActivity extends AppCompatActivity {
@@ -30,6 +32,21 @@ public class CreateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
+
+        ArrayList<Integer> monthLengths = new ArrayList<>();
+        monthLengths.add(00);
+        monthLengths.add(31);
+        monthLengths.add(29);
+        monthLengths.add(31);
+        monthLengths.add(30);
+        monthLengths.add(31);
+        monthLengths.add(30);
+        monthLengths.add(31);
+        monthLengths.add(31);
+        monthLengths.add(30);
+        monthLengths.add(31);
+        monthLengths.add(30);
+        monthLengths.add(31);
 
         etDayOfWeek = findViewById(R.id.etDayOfWeek);
         etDate = findViewById(R.id.etDate);
@@ -55,14 +72,38 @@ public class CreateActivity extends AppCompatActivity {
                 int timeHour = Integer.parseInt(time);
                 int timeMinute = Integer.parseInt(timeMin);
 
-                Day day = new Day(dayOfWeek,dateMonth,dateDay);
-                Assignment assignment = new Assignment(className, title, timeHour,timeMinute);
-                Intent intent = new Intent();
-                intent.putExtra("newDay", Parcels.wrap(day));
-                intent.putExtra("newAssignment", Parcels.wrap(assignment));
-                setResult(RESULT_OK, intent);
-                Log.i(TAG,"reached end of click listener");
-                finish();
+                if(dateMonth <= 12)
+                {
+                    if(dateDay <= monthLengths.get(dateMonth))
+                    {
+                        if(timeHour < 24)
+                        {
+                            if(timeMinute < 60)
+                            {
+                                Day day = new Day(dayOfWeek,dateMonth,dateDay);
+                                Assignment assignment = new Assignment(className, title, timeHour,timeMinute);
+                                Intent intent = new Intent();
+                                intent.putExtra("newDay", Parcels.wrap(day));
+                                intent.putExtra("newAssignment", Parcels.wrap(assignment));
+                                setResult(RESULT_OK, intent);
+                                Log.i(TAG,"reached end of click listener");
+                                finish();
+                            }
+                            else{
+                                Toast.makeText(CreateActivity.this,"CAN NOT HAVE TIME LONGER THAN 60 minutes", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else{
+                            Toast.makeText(CreateActivity.this,"CAN NOT HAVE TIME LONGER THAN 24 HOURS", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else{
+                        Toast.makeText(CreateActivity.this,"CAN NOT HAVE DAY LONGER THAN MONTH", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else{
+                    Toast.makeText(CreateActivity.this,"CAN NOT HAVE MONTHS BEYOND 12th MONTH", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
