@@ -40,31 +40,11 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //get the data at position
         Day day = days.get(position);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         holder.rvAssignment.setLayoutManager(layoutManager);
         holder.rvAssignment.setHasFixedSize(true);
 
-        holder.tvDate.setText(day.date);
-        holder.tvDayOfWeek.setText(day.dayOfTheWeek);
-
-        /*DEBUGGING*/
-        ArrayList<Assignment> currentAssignment = new ArrayList<>();
-
-        switch(position)
-        {
-            case 0:
-                break;
-            case 1:
-                currentAssignment.add(new Assignment("oh no","why","aaaaaaa"));
-                break;
-            case 2:
-                currentAssignment.add(new Assignment("bbb","bbb","bees"));
-                currentAssignment.add(new Assignment());
-                break;
-        }
-
-        AssignmentAdapter assignmentAdapter = new AssignmentAdapter(holder.rvAssignment.getContext(),currentAssignment);
-        holder.rvAssignment.setAdapter(assignmentAdapter);
+        holder.bind(day);
     }
 
 
@@ -81,6 +61,11 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
 
     //adds a list of items to the the data
     public void addAll(List<Day> dayList){
+        days.addAll(dayList);
+        notifyDataSetChanged();
+    }
+
+    public void addAssignment(List<Day> dayList){
         days.addAll(dayList);
         notifyDataSetChanged();
     }

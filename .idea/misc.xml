@@ -3,10 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/Workflow/app/src/main/res/layout/activity_create.xml" value="0.21" />
         <entry key="..\:/AndroidStudioProjects/Workflow/app/src/main/res/layout/activity_day.xml" value="0.2907608695652174" />
         <entry key="..\:/AndroidStudioProjects/Workflow/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/Workflow/app/src/main/res/layout/assignment_layout.xml" value="0.5" />
         <entry key="..\:/AndroidStudioProjects/Workflow/app/src/main/res/layout/day_layout.xml" value="0.22" />
+        <entry key="..\:/AndroidStudioProjects/Workflow/app/src/main/res/menu/menu_make_assignment.xml" value="0.23072916666666668" />
         <entry key="..\:/Users/Brandon/AndroidStudioProjects/Workflow/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/Brandon/AndroidStudioProjects/Workflow/app/src/main/res/layout/assignment_layout.xml" value="0.4" />
         <entry key="..\:/Users/Brandon/AndroidStudioProjects/Workflow/app/src/main/res/layout/day_layout.xml" value="0.264" />

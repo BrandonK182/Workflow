@@ -1,5 +1,8 @@
 package com.example.workflow;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Assignment {
     public String className;
     public String title;
