@@ -2,7 +2,9 @@ package com.example.workflow;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,12 +15,16 @@ import java.util.List;
 
 public class CreateActivity extends AppCompatActivity {
 
+    static final String TAG = "CreateActivity";
+
     TextView etDate;
     TextView etTitle;
     TextView etClass;
     TextView etTime;
     TextView etDayOfWeek;
     Button btnSumbit;
+    TextView etDateDay;
+    TextView etTimeMin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +37,8 @@ public class CreateActivity extends AppCompatActivity {
         etClass = findViewById(R.id.etClass);
         etTime = findViewById(R.id.etTime);
         btnSumbit = findViewById(R.id.btnSubmit);
+        etDateDay = findViewById(R.id.etDateDay);
+        etTimeMin = findViewById(R.id.etTimeMin);
 
         btnSumbit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,18 +48,21 @@ public class CreateActivity extends AppCompatActivity {
                 String title = etTitle.getText().toString();
                 String className = etClass.getText().toString();
                 String time = etTime.getText().toString();
+                String dateStringDay = etDateDay.getText().toString();
+                String timeMin = etTimeMin.getText().toString();
+                int dateMonth = Integer.parseInt(date);
+                int dateDay = Integer.parseInt(dateStringDay);
+                int timeHour = Integer.parseInt(time);
+                int timeMinute = Integer.parseInt(timeMin);
 
-                List<Day> days = Parcels.unwrap(getIntent().getParcelableExtra("days"));
-                Day day = new Day(dayOfWeek,date);
-                if(days.contains(day))
-                {
-                    Day day2 = days.get(days.indexOf(day));
-                    day2.addAssignment(new Assignment(className, title, time));
-                }
-                else
-                {
-
-                }
+                Day day = new Day(dayOfWeek,dateMonth,dateDay);
+                Assignment assignment = new Assignment(className, title, timeHour,timeMinute);
+                Intent intent = new Intent();
+                intent.putExtra("newDay", Parcels.wrap(day));
+                intent.putExtra("newAssignment", Parcels.wrap(assignment));
+                setResult(RESULT_OK, intent);
+                Log.i(TAG,"reached end of click listener");
+                finish();
             }
         });
 

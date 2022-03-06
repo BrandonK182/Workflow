@@ -45,6 +45,13 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
         holder.rvAssignment.setHasFixedSize(true);
 
         holder.bind(day);
+
+        /*DEBUG*/
+        ArrayList<Assignment> currentAssignment = day.assignments;
+
+        AssignmentAdapter assignmentAdapter = new AssignmentAdapter(holder.rvAssignment.getContext(),currentAssignment);
+        holder.rvAssignment.setAdapter(assignmentAdapter);
+
     }
 
 
